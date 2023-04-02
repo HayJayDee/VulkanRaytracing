@@ -1,25 +1,16 @@
-#define GLFW_INCLUDE_VULKAN
-#include <GLFW/glfw3.h>
-
-#define GLM_FORCE_RADIANS
-#define GLM_FORCE_DEPTH_ZERO_TO_ONE
-#include <glm/vec4.hpp>
-#include <glm/mat4x4.hpp>
-
+#include "application.h"
+#include <stdexcept>
+#include <cstdlib>
 #include <iostream>
 
 int main() {
-    glfwInit();
+    RayTracingApplication app;
 
-    glfwWindowHint(GLFW_CLIENT_API, GLFW_NO_API);
-    GLFWwindow* window = glfwCreateWindow(800, 600, "Vulkan window", nullptr, nullptr);
-    while(!glfwWindowShouldClose(window)) {
-        glfwPollEvents();
+    try {
+        app.run();
+    }catch(const std::exception& e) {
+        std::cerr << e.what() << std::endl;
+        return EXIT_FAILURE;
     }
-
-    glfwDestroyWindow(window);
-
-    glfwTerminate();
-
     return 0;
 }
